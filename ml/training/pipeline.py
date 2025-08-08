@@ -31,9 +31,12 @@ class TrainingPipeline:
 
     def _load_symbol(self, symbol: str) -> pd.DataFrame:
         # Expecting files like EXCHANGE_SYMBOL.csv e.g. NSE_SBIN.csv
-        path = os.path.join(self.config.data_dir, f"{symbol}.csv") if symbol.endswith(".csv") else os.path.join(self.config.data_dir, f"{symbol}.csv")
+        if symbol.endswith(".csv"):
+            path = os.path.join(self.config.data_dir, symbol)
+        else:
+            path = os.path.join(self.config.data_dir, f"{symbol}.csv")
         if not os.path.exists(path):
-            # Try without extension if symbol already contains path
+            # Try using provided symbol as-is relative to data_dir
             path = os.path.join(self.config.data_dir, symbol)
         df = pd.read_csv(path)
         if "datetime" in df.columns:
