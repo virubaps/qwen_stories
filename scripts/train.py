@@ -5,6 +5,7 @@ import sys
 
 # Ensure project root on path
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+DEFAULT_DATA_DIR = os.path.join(PROJECT_ROOT, 'data', '1_min')
 sys.path.append(PROJECT_ROOT)
 
 from ml.training.pipeline import TrainingPipeline, TrainingConfig
@@ -13,7 +14,7 @@ from ml.training.pipeline import TrainingPipeline, TrainingConfig
 def parse_args():
     p = argparse.ArgumentParser(description="Train XGBoost + LSTM ensemble")
     p.add_argument("--symbols", nargs="+", required=True, help="Symbols like NSE_SBIN or file names like NSE_SBIN.csv")
-    p.add_argument("--data_dir", default=PROJECT_ROOT, help="Directory containing CSV files")
+    p.add_argument("--data_dir", default=DEFAULT_DATA_DIR, help="Directory containing CSV files")
     p.add_argument("--lookback", type=int, default=60, help="LSTM sequence length")
     p.add_argument("--horizon", type=int, default=5, help="Future horizon in bars for labeling")
     p.add_argument("--return_threshold", type=float, default=0.003, help="Return threshold for classification")

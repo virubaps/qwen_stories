@@ -5,6 +5,7 @@ import sys
 
 # Ensure project root on path
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+DEFAULT_DATA_DIR = os.path.join(PROJECT_ROOT, 'data', '1_min')
 sys.path.append(PROJECT_ROOT)
 
 from ml.backtesting.engine import BacktestEngine, BacktestConfig
@@ -13,7 +14,7 @@ from ml.backtesting.engine import BacktestEngine, BacktestConfig
 def parse_args():
     p = argparse.ArgumentParser(description="Backtest trained ensemble")
     p.add_argument("--symbols", nargs="+", required=True, help="Symbols like NSE_SBIN or file names like NSE_SBIN.csv")
-    p.add_argument("--data_dir", default=PROJECT_ROOT, help="Directory containing CSV files")
+    p.add_argument("--data_dir", default=DEFAULT_DATA_DIR, help="Directory containing CSV files")
     p.add_argument("--start", default=None, help="Start datetime (YYYY-MM-DD or full timestamp)")
     p.add_argument("--end", default=None, help="End datetime (YYYY-MM-DD or full timestamp)")
     p.add_argument("--model_dir", default=os.path.join(PROJECT_ROOT, "models"), help="Directory containing model artifacts")
