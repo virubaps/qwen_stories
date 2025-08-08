@@ -58,7 +58,10 @@ class BacktestEngine:
         daily_returns = []
         trades = []
         for symbol in self.config.symbols:
-            path = os.path.join(self.config.data_dir, f"{symbol}.csv") if symbol.endswith(".csv") else os.path.join(self.config.data_dir, f"{symbol}.csv")
+            if symbol.endswith(".csv"):
+                path = os.path.join(self.config.data_dir, symbol)
+            else:
+                path = os.path.join(self.config.data_dir, f"{symbol}.csv")
             if not os.path.exists(path):
                 path = os.path.join(self.config.data_dir, symbol)
             df = pd.read_csv(path)
